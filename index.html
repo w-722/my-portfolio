@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="王佳佳的个人作品集，包含个人介绍、获奖经历与设计项目。">
+  <title>王佳佳 — 作品集</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1d1b32;
+      --muted: #77758c;
+      --accent: #6558e8;
+      --accent-dark: #5144d1;
+      --line: #e9e7f2;
+      --paper: #fbfaff;
+      --white: #fff;
+      --gradient: linear-gradient(120deg, #7264f2 0%, #a46be9 56%, #68a9ef 100%);
+      --shadow: 0 18px 50px rgba(56, 44, 124, .09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid rgba(233, 231, 242, .82);
+      background: rgba(251, 250, 255, .88);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand { font-size: 16px; font-weight: 800; letter-spacing: -.04em; text-decoration: none; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 26px; }
+    .nav-links a {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .18s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links .nav-contact {
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 98px 0 82px;
+    }
+    .hero::before, .hero::after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::before {
+      width: 560px;
+      height: 560px;
+      top: -290px;
+      right: -110px;
+      background: radial-gradient(circle, rgba(126, 104, 239, .17), transparent 70%);
+    }
+    .hero::after {
+      width: 300px;
+      height: 300px;
+      bottom: -210px;
+      left: -110px;
+      background: radial-gradient(circle, rgba(82, 165, 237, .12), transparent 70%);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 50px;
+    }
+    .kicker {
+      margin: 0 0 17px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(52px, 8vw, 86px);
+      line-height: 1.08;
+      letter-spacing: -.075em;
+    }
+    .gradient-text {
+      color: var(--accent);
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      max-width: 590px;
+      margin: 23px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.9;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 25px; }
+    .tag {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .75);
+      color: #5f5c73;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .portrait-card {
+      justify-self: end;
+      position: relative;
+      width: min(100%, 340px);
+      aspect-ratio: 4 / 4.5;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 8px solid rgba(255, 255, 255, .86);
+      border-radius: 35% 35% 25px 25px;
+      background: var(--gradient);
+      box-shadow: 0 24px 65px rgba(95, 78, 206, .22);
+      color: rgba(255, 255, 255, .9);
+    }
+    .portrait-card::before, .portrait-card::after {
+      position: absolute;
+      content: "";
+      border: 1px solid rgba(255, 255, 255, .27);
+      border-radius: 50%;
+    }
+    .portrait-card::before { width: 260px; height: 260px; }
+    .portrait-card::after { width: 350px; height: 350px; }
+    .portrait-initial {
+      z-index: 1;
+      font-size: 112px;
+      font-weight: 800;
+      letter-spacing: -.1em;
+      text-shadow: 0 8px 24px rgba(49, 35, 129, .18);
+    }
+    .portrait-caption {
+      position: absolute;
+      z-index: 2;
+      right: 18px;
+      bottom: 17px;
+      left: 18px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 14px;
+      background: rgba(35, 29, 91, .15);
+      color: white;
+      font-size: 12px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    .section { padding: 65px 0; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 25px;
+      margin-bottom: 28px;
+    }
+    .section-index {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .15em;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4.5vw, 44px);
+      letter-spacing: -.055em;
+    }
+    .section-note { max-width: 460px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .profile-layout {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 20px;
+    }
+    .profile-summary, .profile-details, .award-card, .project, .reflection {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--white);
+      box-shadow: 0 8px 28px rgba(48, 40, 96, .035);
+    }
+    .profile-summary {
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+      padding: 29px;
+      background: linear-gradient(145deg, #fff 0%, #f0edff 100%);
+    }
+    .profile-summary::after {
+      position: absolute;
+      right: -75px;
+      bottom: -100px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: var(--gradient);
+      content: "";
+      opacity: .12;
+    }
+    .summary-label { margin: 0 0 15px; color: var(--muted); font-size: 12px; }
+    .profile-name { margin: 0; font-size: 34px; letter-spacing: -.06em; }
+    .profile-role { margin: 8px 0 23px; color: var(--accent); font-size: 14px; font-weight: 700; }
+    .summary-line { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .profile-details {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      padding: 8px 24px;
+    }
+    .detail {
+      padding: 17px 9px;
+      border-bottom: 1px solid var(--line);
+    }
+    .detail:nth-last-child(-n+2) { border-bottom: 0; }
+    .detail-label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 11px; }
+    .detail-value { font-size: 13px; font-weight: 700; line-height: 1.6; }
+    .detail-value.pending { color: #8b889b; font-weight: 500; }
+    .awards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .award-card { padding: 21px; }
+    .award-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      border-radius: 13px;
+      background: #f0edff;
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 800;
+    }
+    .award-card h3 { margin: 0; font-size: 15px; line-height: 1.55; }
+    .award-meta { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .certificate {
+      display: inline-block;
+      margin-top: 17px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .projects { display: grid; gap: 20px; }
+    .project { overflow: hidden; }
+    .project-top {
+      display: grid;
+      grid-template-columns: .88fr 1.12fr;
+      min-height: 255px;
+    }
+    .project-image {
+      position: relative;
+      min-height: 255px;
+      overflow: hidden;
+      background: #eceaff;
+    }
+    .project-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 255px;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .project:hover .project-image img { transform: scale(1.035); }
+    .project-number {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 255, 255, .54);
+      border-radius: 999px;
+      background: rgba(28, 25, 58, .48);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+    .project-intro { align-self: center; padding: 30px 34px; }
+    .project-type {
+      margin: 0 0 11px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .project-intro h3 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.05em; }
+    .project-intro > p:last-of-type { margin: 13px 0 0; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .project-tools { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    .project-tools span {
+      padding: 6px 9px;
+      border-radius: 7px;
+      background: #f4f2fb;
+      color: #69667c;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .process {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      padding: 24px 27px 26px;
+      gap: 22px;
+    }
+    .process-step { position: relative; padding-left: 17px; }
+    .process-step::before {
+      position: absolute;
+      top: 4px;
+      bottom: 2px;
+      left: 0;
+      width: 2px;
+      border-radius: 4px;
+      background: linear-gradient(var(--accent), #afa6f7);
+      content: "";
+    }
+    .process-step h4 { margin: 0 0 9px; font-size: 12px; }
+    .process-step p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+    .process-step p + p { margin-top: 5px; }
+    .process-step strong { color: #4a4760; font-weight: 700; }
+    .project-reflection {
+      display: flex;
+      align-items: start;
+      gap: 10px;
+      margin: 0 27px 24px;
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: #f8f7fc;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+    .project-reflection strong { flex: none; color: var(--accent); }
+    .disclaimer { margin: 16px 0 0; color: #9693a5; font-size: 11px; line-height: 1.7; }
+    .closing {
+      margin-top: 34px;
+      padding: 38px 40px;
+      border-radius: 24px;
+      background: var(--gradient);
+      color: white;
+      box-shadow: 0 20px 45px rgba(102, 88, 232, .2);
+    }
+    .closing-inner { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+    .closing h2 { font-size: clamp(25px, 4vw, 36px); }
+    .closing p { margin: 9px 0 0; color: rgba(255, 255, 255, .78); font-size: 13px; }
+    .closing .contacts { display: flex; flex-wrap: wrap; gap: 10px; }
+    .contacts a {
+      padding: 11px 15px;
+      border: 1px solid rgba(255, 255, 255, .48);
+      border-radius: 999px;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .18s ease, color .18s ease;
+    }
+    .contacts a:hover { background: white; color: var(--accent-dark); }
+    footer { padding: 25px 0 32px; color: #9693a5; font-size: 11px; text-align: center; }
+    @media (max-width: 760px) {
+      .hero { padding: 68px 0 55px; }
+      .hero-grid { grid-template-columns: 1fr .65fr; gap: 24px; }
+      .portrait-card { width: 100%; border-width: 5px; border-radius: 32% 32% 18px 18px; }
+      .portrait-initial { font-size: 75px; }
+      .portrait-caption { right: 10px; bottom: 10px; left: 10px; font-size: 10px; }
+      .profile-layout { grid-template-columns: 1fr; }
+      .profile-summary { min-height: unset; }
+      .awards { grid-template-columns: 1fr 1fr; }
+      .project-top { grid-template-columns: .8fr 1.2fr; }
+      .project-intro { padding: 24px; }
+      .process { padding: 20px; gap: 14px; }
+      .project-reflection { margin-right: 20px; margin-left: 20px; }
+      .closing { padding: 30px; }
+    }
+    @media (max-width: 540px) {
+      .wrap { width: min(100% - 36px, 440px); }
+      .nav { min-height: 60px; }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 11px; }
+      .nav-links a:nth-child(2) { display: none; }
+      .nav-links .nav-contact { padding: 9px 12px; }
+      .hero { padding: 60px 0 45px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { order: 1; }
+      .portrait-card { display: none; }
+      h1 { font-size: clamp(52px, 14vw, 70px); }
+      .hero-desc { font-size: 15px; }
+      .section { padding: 46px 0; }
+      .section-head { display: block; margin-bottom: 22px; }
+      .section-note { margin-top: 10px; }
+      .profile-details { padding: 6px 13px; }
+      .detail { padding: 14px 7px; }
+      .awards { grid-template-columns: 1fr; gap: 11px; }
+      .award-card { display: grid; grid-template-columns: 42px 1fr; column-gap: 13px; padding: 15px; }
+      .award-mark { grid-row: span 2; margin: 0; }
+      .award-meta { margin-top: 4px; }
+      .certificate { grid-column: 2; margin-top: 8px; }
+      .project-top { grid-template-columns: 1fr; }
+      .project-image, .project-image img { min-height: 190px; max-height: 220px; }
+      .project-intro { padding: 22px; }
+      .process { grid-template-columns: 1fr; gap: 16px; padding: 18px 22px; }
+      .process-step p { font-size: 12px; }
+      .project-reflection { margin: 0 16px 17px; }
+      .closing { padding: 27px 23px; }
+      .closing-inner { align-items: start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <nav class="nav wrap" aria-label="主导航">
+      <a class="brand" href="#top">王佳佳<span> / 作品集</span></a>
+      <div class="nav-links">
+        <a href="#about">个人介绍</a>
+        <a href="#awards">获奖经历</a>
+        <a href="#projects">项目合集</a>
+        <a class="nav-contact" href="#contact">联系我 ↗</a>
+      </div>
+    </nav>
+  </div>
+  <main id="top">
+    <header class="hero">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <p class="kicker">Portfolio · 个人作品集</p>
+          <h1>用设计<br>讲述<span class="gradient-text">好故事</span></h1>
+          <p class="hero-desc">你好，我是王佳佳。这里整理了我的个人介绍、设计方向与项目实践，希望通过每一次创作，把想法变成清晰、有温度的视觉体验。</p>
+          <div class="hero-tags" aria-label="作品集方向">
+            <span class="tag">平面视觉</span>
+            <span class="tag">UI / UX 设计</span>
+            <span class="tag">动态视觉</span>
+            <span class="tag">持续探索中</span>
+          </div>
+        </div>
+        <div class="portrait-card" role="img" aria-label="王佳佳头像占位，请替换为个人照片">
+          <span class="portrait-initial">佳</span>
+          <span class="portrait-caption">头像占位 · 可替换为个人照片</span>
+        </div>
+      </div>
+    </header>
+    <section class="section wrap" id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <div>
+          <span class="section-index">01 — ABOUT ME</span>
+          <h2 id="about-title">个人介绍</h2>
+        </div>
+        <p class="section-note">关于我的背景、设计方向与成长计划。尚未提供的个人信息先留作待补充。</p>
+      </div>
+      <div class="profile-layout">
+        <article class="profile-summary">
+          <p class="summary-label">ABOUT THE DESIGNER</p>
+          <h3 class="profile-name">王佳佳</h3>
+          <p class="profile-role">设计方向 · 待补充</p>
+          <p class="summary-line">喜欢观察日常中的细节，并通过视觉、结构与交互把复杂信息整理得更清晰。持续积累作品，也持续学习新的表达方式。</p>
+        </article>
+        <div class="profile-details">
+          <div class="detail"><span class="detail-label">姓名 / 年龄</span><span class="detail-value">王佳佳 / 待补充</span></div>
+          <div class="detail"><span class="detail-label">学校 / 专业</span><span class="detail-value pending">待补充</span></div>
+          <div class="detail"><span class="detail-label">设计方向</span><span class="detail-value">平面视觉 · UI/UX · 动态视觉</span></div>
+          <div class="detail"><span class="detail-label">求职意向</span><span class="detail-value pending">待补充</span></div>
+          <div class="detail"><span class="detail-label">个人风格关键词</span><span class="detail-value">清晰 · 克制 · 有温度</span></div>
+          <div class="detail"><span class="detail-label">优势与短板</span><span class="detail-value pending">优势与待提升方向待补充</span></div>
+          <div class="detail"><span class="detail-label">专业成长愿景</span><span class="detail-value pending">待补充</span></div>
+          <div class="detail"><span class="detail-label">未来学习计划 / 发展方向</span><span class="detail-value pending">待补充</span></div>
+          <div class="detail"><span class="detail-label">个人二维码</span><span class="detail-value pending">可替换为微信 / 主页二维码</span></div>
+          <div class="detail"><span class="detail-label">目录导航</span><span class="detail-value">介绍 · 经历 · 项目 · 联系</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="section wrap" id="awards" aria-labelledby="awards-title">
+      <div class="section-head">
+        <div>
+          <span class="section-index">02 — AWARDS & EXPERIENCE</span>
+          <h2 id="awards-title">获奖 / 参赛经历</h2>
+        </div>
+        <p class="section-note">可补充参赛作品名称、获奖等级、时间与证书照片。</p>
+      </div>
+      <div class="awards">
+        <article class="award-card">
+          <span class="award-mark" aria-hidden="true">✦</span>
+          <h3>参赛作品名称 · 待补充</h3>
+          <p class="award-meta">获奖等级 / 时间：待补充</p>
+          <span class="certificate">证书照片待添加</span>
+        </article>
+        <article class="award-card">
+          <span class="award-mark" aria-hidden="true">✧</span>
+          <h3>参赛作品名称 · 待补充</h3>
+          <p class="award-meta">获奖等级 / 时间：待补充</p>
+          <span class="certificate">证书照片待添加</span>
+        </article>
+        <article class="award-card">
+          <span class="award-mark" aria-hidden="true">✳</span>
+          <h3>参赛作品名称 · 待补充</h3>
+          <p class="award-meta">获奖等级 / 时间：待补充</p>
+          <span class="certificate">证书照片待添加</span>
+        </article>
+      </div>
+    </section>
+    <section class="section wrap" id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <div>
+          <span class="section-index">03 — SELECTED WORKS</span>
+          <h2 id="projects-title">项目合集</h2>
+        </div>
+        <p class="section-note">从项目背景、灵感调研到制作过程与最终成果，记录每个方案如何一步步成形。</p>
+      </div>
+      <div class="projects">
+        <article class="project">
+          <div class="project-top">
+            <div class="project-image">
+              <img src="https://picsum.photos/seed/jiajia-motion/900/600" alt="AE 动态信息图视频项目占位图" loading="lazy">
+              <span class="project-number">PROJECT 01</span>
+            </div>
+            <div class="project-intro">
+              <p class="project-type">动态视觉 · AE</p>
+              <h3>AE 动态信息图视频</h3>
+              <p>以动态图形呈现信息主题，将内容梳理、分镜设计与视听节奏结合，完成一支具有连贯叙事的短视频。</p>
+              <div class="project-tools"><span>信息可视化</span><span>After Effects</span><span>动态设计</span></div>
+            </div>
+          </div>
+          <div class="process">
+            <div class="process-step"><h4>01 · 策划 / 前期调研</h4><p><strong>信息梳理：</strong>提炼主题、受众与核心信息。</p><p><strong>分镜脚本：</strong>规划画面顺序、节奏与转场。</p><p><strong>风格板：</strong>确定色彩、图形与视觉语气。</p></div>
+            <div class="process-step"><h4>02 · 软件制作过程</h4><p><strong>AI 素材绘制：</strong>制作并整理画面元素。</p><p><strong>AE 关键帧：</strong>完成动画、节奏与镜头衔接。</p><p><strong>音效匹配：</strong>调整配乐与动效节奏。</p></div>
+            <div class="process-step"><h4>03 · 最终成品</h4><p>渲染输出视频成片，并准备封面与播放展示。</p><p>作品视频：待替换为个人项目成片。</p></div>
+          </div>
+          <p class="project-reflection"><strong>项目复盘</strong><span>可补充项目中解决的关键问题、完成效果与下一步改进。</span></p>
+        </article>
+        <article class="project">
+          <div class="project-top">
+            <div class="project-image">
+              <img src="https://picsum.photos/seed/jiajia-twin/900/600" alt="数字孪生系统设计项目占位图" loading="lazy">
+              <span class="project-number">PROJECT 02</span>
+            </div>
+            <div class="project-intro">
+              <p class="project-type">数字视觉 · 三维呈现</p>
+              <h3>智能制造数字孪生系统设计</h3>
+              <p>围绕智能制造场景构建数字化展示方案，梳理设备与空间信息，并通过三维画面呈现系统结构和运行状态。</p>
+              <div class="project-tools"><span>场景研究</span><span>三维视觉</span><span>动态呈现</span></div>
+            </div>
+          </div>
+          <div class="process">
+            <div class="process-step"><h4>01 · 策划 / 前期调研</h4><p>梳理应用场景、核心设备与展示目标。</p><p>编写演示脚本，搭建场景与信息层级。</p></div>
+            <div class="process-step"><h4>02 · 软件制作过程</h4><p>整理模型与视觉素材，规划镜头和展示节奏。</p><p>完成场景制作、灯光材质与动画渲染。</p></div>
+            <div class="process-step"><h4>03 · 最终成品</h4><p>输出系统视觉方案与演示画面。</p><p>视频脚本、渲染过程及最终效果待补充。</p></div>
+          </div>
+          <p class="project-reflection"><strong>项目复盘</strong><span>项目名称与描述为框架示例，请替换为你的实际项目和制作细节。</span></p>
+        </article>
+        <article class="project">
+          <div class="project-top">
+            <div class="project-image">
+              <img src="https://picsum.photos/seed/jiajia-app/900/600" alt="Figma 电能优化充电 APP 设计项目占位图" loading="lazy">
+              <span class="project-number">PROJECT 03</span>
+            </div>
+            <div class="project-intro">
+              <p class="project-type">UI / UX · FIGMA</p>
+              <h3>电能优化充电 APP</h3>
+              <p>从用户充电需求出发，探索更直观的能源信息与充电流程体验，完成移动端界面及交互原型设计。</p>
+              <div class="project-tools"><span>用户研究</span><span>界面设计</span><span>交互原型</span></div>
+            </div>
+          </div>
+          <div class="process">
+            <div class="process-step"><h4>01 · 项目背景 / 灵感来源</h4><p>梳理用户痛点、使用场景与需求目标。</p><p>参考竞品方案，提炼设计趋势和灵感方向。</p></div>
+            <div class="process-step"><h4>02 · 草图 / 前期调研</h4><p>建立用户画像、信息架构与纸面线框。</p><p>梳理关键任务和主要页面流程。</p></div>
+            <div class="process-step"><h4>03 · 软件制作过程 / 成品</h4><p>使用 Figma 组件搭建高保真界面与交互原型。</p><p>整理设计规范，展示关键页面与可点击原型。</p></div>
+          </div>
+          <p class="project-reflection"><strong>项目复盘</strong><span>可补充用户反馈、方案迭代过程，以及设计对核心需求的回应。</span></p>
+        </article>
+        <article class="project">
+          <div class="project-top">
+            <div class="project-image">
+              <img src="https://picsum.photos/seed/jiajia-poster/900/600" alt="PS 平面视觉设计项目占位图" loading="lazy">
+              <span class="project-number">PROJECT 04</span>
+            </div>
+            <div class="project-intro">
+              <p class="project-type">平面视觉 · PHOTOSHOP</p>
+              <h3>PS 平面视觉设计</h3>
+              <p>围绕明确的设计主题探索版式、图像与字体之间的关系，形成适用于展示和传播的平面视觉作品。</p>
+              <div class="project-tools"><span>版式设计</span><span>视觉合成</span><span>品牌表达</span></div>
+            </div>
+          </div>
+          <div class="process">
+            <div class="process-step"><h4>01 · 项目背景 / 灵感来源</h4><p>确认设计主题与应用场景，搜集海报参考。</p><p>提炼色彩感受与视觉表达方向。</p></div>
+            <div class="process-step"><h4>02 · 草图 / 前期调研</h4><p>绘制版式草稿，整理素材并进行字体调研。</p><p>比较不同构图和信息层级方案。</p></div>
+            <div class="process-step"><h4>03 · 软件制作过程 / 成品</h4><p>通过 PS 合成、调色、字体排版与视觉层次调整。</p><p>输出成稿展示图与应用物料。</p></div>
+          </div>
+          <p class="project-reflection"><strong>项目复盘</strong><span>记录版式问题、表达提升方向与最终展示效果。</span></p>
+        </article>
+      </div>
+      <p class="disclaimer">提示：项目名称、说明和过程目前为作品集结构示例，请按实际经历替换；图片来自 Picsum 占位服务。</p>
+    </section>
+    <section class="wrap" id="contact" aria-labelledby="contact-title">
+      <div class="closing">
+        <div class="closing-inner">
+          <div>
+            <span class="section-index" style="color:rgba(255,255,255,.75)">04 — CONTACT</span>
+            <h2 id="contact-title">一起做点有意思的事。</h2>
+            <p>欢迎交流设计、合作机会或新的想法。</p>
+          </div>
+          <nav class="contacts" aria-label="联系方式">
+            <a href="mailto:hello@example.com">✉ hello@example.com</a>
+            <a href="https://github.com/yourname" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap">© 2026 王佳佳 · 个人作品集</footer>
+</body>
+</html>
